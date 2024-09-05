@@ -14,15 +14,13 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Text(progress, format: .percent.precision(.fractionLength(.zero)))
-                .frame(maxWidth: .infinity, minHeight: 80)
-                .background {
-                    progressBar
-                }
+            progressBar
+                .frame(maxWidth: .infinity, maxHeight: 80)
             
             Slider(value: $progress, in: 0...1)
                 .padding()
         }
+        
         .padding()
     }
     
@@ -34,6 +32,18 @@ struct ContentView: View {
                 
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(.gray)
+                    .mask {
+                        Rectangle()
+                            .offset(x: -progressBarValue)
+                    }
+                
+                Text("Some text here...")
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
+                
+                Text("Some text here...")
+                    .foregroundStyle(.black)
+                    .frame(maxWidth: .infinity)
                     .mask {
                         Rectangle()
                             .offset(x: -progressBarValue)
